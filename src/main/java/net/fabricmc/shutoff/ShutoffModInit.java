@@ -1,10 +1,14 @@
-package net.fabricmc.example;
+package net.fabricmc.shutoff;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.server.ServerTickCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExampleMod implements ModInitializer {
+import java.io.IOException;
+
+public class ShutoffModInit implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
@@ -16,6 +20,10 @@ public class ExampleMod implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
-		LOGGER.info("Hello Fabric world!");
+		ServerTickEvents.END_SERVER_TICK.register(new ShutoffModRuntime());
+		
+		LOGGER.info("Loaded Shutoff Mod");
 	}
+
+
 }
